@@ -8,6 +8,13 @@
 
   "homepage_url": "https://www.hightekdesigns.com",
 
+  "applications": {
+    "gecko": {
+      "id": "TitleCase@htdsoftware.com",
+      "strict_min_version": "42.0"
+    }
+  },
+
   "icons": {
     "32": "icons/dictionary-32.png",
       "64": "icons/dictionary-64.png"

@@ -89,7 +89,7 @@ var TitleCase = new function() {
         break;
       case 56: //ALT+8
       case 'lowercase':
-        TitleCaseChange.lowerCaseCamelChange(info, selectionTarget);
+        TitleCaseChange.lowerCaseChange(info, selectionTarget);
         break;
       default:
         // do nothing
