@@ -1,32 +1,56 @@
-
 var TitleCaseChange = new function() {
   // set global vars
   var $this = this;
+  var newinfo = 'replaced text';
+  var exceptionWords = new Array('and', 'the', 'to', 'for', 'is', 'in', 'a', 'at', 'an', 'from', 'by', 'if', 'of');
 
-    this.properCaseChange = function(info) {
-      console.log(info);
-    };
-    this.titleCaseChange = function(info) {
-      console.log(info);
-    };
-    this.titleCaseCamelChange = function(info) {
-      console.log(info);
-    };
-    this.startCaseChange = function(info) {
-      console.log(info);
-    };
-    this.startCaseCamelChange = function(info) {
-      console.log(info);
-    };
-    this.camelCaseChange = function(info) {
-      console.log(info);
-    };
-    this.upperCaseChange = function(info) {
-      console.log(info);
-    };
-    this.lowerCaseCamelChange = function(info) {
-      console.log(info);
-    };
+  this.properCaseChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.titleCaseChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.titleCaseCamelChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.startCaseChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.startCaseCamelChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.camelCaseChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.upperCaseChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.lowerCaseCamelChange = function(info, selectionTarget) {
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
+
+  this.changeSelection = function(info, newinfo, selectionTarget) {
+    console.log(info);
+    if (selectionTarget.value === undefined) {
+      // need to detect rich text field or input/text field
+      if (selectionTarget.rangeCount) {
+        var range = selectionTarget.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(document.createTextNode(newinfo));
+      }
+    } else {
+      console.log('input or textarea');
+    }
+
+    console.log(selectionTarget);
+  };
 };
 
   //

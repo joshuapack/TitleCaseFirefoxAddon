@@ -14,18 +14,19 @@
   },
 
   "background": {
-    "scripts": ["background.js", "titlecasechange.js"]
+    "scripts": ["background.js"]
   },
 
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["library/jquery-1.12.4.min.js", "titlecase.js", "titlecasechange.js"]
+      "js": ["titlecase.js", "titlecasechange.js"]
     }
   ],
 
   "permissions": [
     "activeTab",
+    "tabs",
     "contextMenus",
     "storage",
     "<all_urls>"

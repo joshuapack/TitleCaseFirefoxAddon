@@ -1,15 +1,13 @@
+// set some globals
 var checkedState = false;
+var currentClicked = '';
+
 let gettingItem = browser.storage.local.get("altcmd");
 gettingItem.then(onGot, onError);
-if (checkedState !== true && checkedState !== false) {
-  console.log('checkedState not set');
-  checkedState = false;
-  browser.storage.local.set({altcmd: false});
-}
+
 /*
 Create all the context menu items.
 */
-
 browser.contextMenus.create({
   id: "check-uncheck",
   type: "checkbox",
@@ -75,7 +73,6 @@ browser.contextMenus.create({
 function updateCheckUncheck() {
   checkedState = !checkedState;
   if (checkedState) {
-    // if check enable ALT
     browser.storage.local.set({altcmd: true});
   } else {
     browser.storage.local.set({altcmd: false});
@@ -87,42 +84,33 @@ The click event listener, where we perform the appropriate action given the
 ID of the menu item that was clicked.
 */
 browser.contextMenus.onClicked.addListener(function(info, tab) {
-  switch (info.menuItemId) {
-    case "propercase":
-      TitleCaseChange.properCaseChange(info.selectionText);
-      break;
-    case "titlecase":
-      TitleCaseChange.titleCaseChange(info.selectionText);
-      break;
-    case "titlecasecc":
-      TitleCaseChange.titleCaseCamelChange(info.selectionText);
-      break;
-    case "startcase":
-      TitleCaseChange.startCaseChange(info.selectionText);
-      break;
-    case "startcasecc":
-      TitleCaseChange.startCaseCamelChange(info.selectionText);
-      break;
-    case "camelcase":
-      TitleCaseChange.camelCaseChange(info.selectionText);
-      break;
-    case "uppercase":
-      TitleCaseChange.upperCaseChange(info.selectionText);
-      break;
-    case "lowercase":
-      TitleCaseChange.lowerCaseCamelChange(info.selectionText);
-      break;
-    case "check-uncheck":
-      updateCheckUncheck();
-      break;
+  if (info.menuItemId == 'check-uncheck') {
+    updateCheckUncheck();
   }
+  currentClicked = info.menuItemId;
+  browser.tabs.query({
+    currentWindow: true,
+    active: true
+  }).then(sendMessageToTabs).catch(onError);
 });
 
+function sendMessageToTabs(tabs) {
+  for (let tab of tabs) {
+    browser.tabs.sendMessage(
+      tab.id,
+      {method: currentClicked}
+    ).then(response => {
+      // console.log("Message from the content script:");
+      // console.log(response.response);
+    }).catch(onError);
+  }
+}
 
 function onGot(item) {
   checkedState = item.altcmd;
+  browser.contextMenus.update("check-uncheck", {checked: checkedState});
 }
 
 function onError(error) {
-  console.log("Error: ${error}");
+  console.log("Error: " + error);
 }

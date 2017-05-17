@@ -1,53 +1,35 @@
-jQuery.noConflict();
 var altcmd = false;
 var TitleCase = new function() {
 
   // set global vars
-  var $ = jQuery;
   var selection = '';
+  var selectionValue = '';
+  var selectionTarget = '';
+  var selectionInfo = '';
   var $this = this;
   var altCmdHandler = function(e) {
-    // http://www.catswhocode.com/blog/using-keyboard-shortcuts-in-javascript
     if (e.altKey) {
-      switch (e.which) {
-        case 49: //ALT+1
-          TitleCaseChange.properCaseChange(selection.toString());
-          break;
-        case 50: //ALT+2
-          TitleCaseChange.titleCaseChange(selection.toString());
-          break;
-        case 51: //ALT+3
-          TitleCaseChange.titleCaseCamelChange(selection.toString());
-          break;
-        case 52: //ALT+4
-          TitleCaseChange.startCaseChange(selection.toString());
-          break;
-        case 53: //ALT+5
-          TitleCaseChange.startCaseCamelChange(selection.toString());
-          break;
-        case 54: //ALT+6
-          TitleCaseChange.camelCaseChange(selection.toString());
-          break;
-        case 55: //ALT+7
-          TitleCaseChange.upperCaseChange(selection.toString());
-          break;
-        case 56: //ALT+8
-          TitleCaseChange.lowerCaseCamelChange(selection.toString());
-          break;
-        default:
-          // do nothing
-      }
+      $this.programSwitch(e.which, selectionInfo, selectionTarget);
       return false;
     }
   };
 
   // run this to start application
   this.onLoad = function() {
+    browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+      $this.checkSettingChanges();
+
+      if (request.method != 'check-uncheck') {
+        $this.programSwitch(request.method, selectionInfo, selectionTarget);
+      }
+      return Promise.resolve({response: "Hi from content script"});
+    });
     let gettingItem = browser.storage.local.get("altcmd");
     gettingItem.then(onGot, onError);
     // make hooks
-    $(document).mouseup(function() { $this.getSelectedText(); $this.checkSettingChanges(); });
-    $(document).keyup(function(e) { $this.getSelectedText(); $this.checkSettingChanges(); });
+    document.addEventListener("mouseup", function(e) { $this.getSelectedText(e); });
+    document.addEventListener("keyup", function(e) { $this.getSelectedText(e); });
+    $this.checkSettingChanges();
   };
 
   this.checkSettingChanges = function () {
@@ -58,27 +40,66 @@ var TitleCase = new function() {
   // get select text
   this.getSelectedText = function(e) {
     selection = window.getSelection();
-    // need to detect rich text field or input/text field
-    if (selection.rangeCount) {
-      // var range = sel.getRangeAt(0);
-      // range.deleteContents();
-      // range.insertNode(document.createTextNode("This is a test"));
+    selectionValue = e;
+    selectionTarget = selection;
+    selectionInfo = selectionTarget.toString();
+    if (selectionInfo == '' && selectionValue.target.value !== undefined) {
+      selectionTarget = selectionValue.target;
+      selectionInfo = selectionTarget.value.substring(selectionTarget.selectionStart, selectionTarget.selectionEnd);
     }
   };
 
   this.unbindAltCmd = function() {
-    $(document).unbind("keyup", altCmdHandler);
+    document.removeEventListener("keyup", altCmdHandler);
   };
 
   this.bindAltCmd = function() {
-    $(document).keyup(altCmdHandler);
+    document.addEventListener("keyup", altCmdHandler);
+  };
+
+  this.programSwitch = function(whereTo, info, selectionTarget) {
+    switch (whereTo) {
+      case 49: //ALT+1
+      case 'propercase':
+        TitleCaseChange.properCaseChange(info, selectionTarget);
+        break;
+      case 50: //ALT+2
+      case 'titlecase':
+        TitleCaseChange.titleCaseChange(info, selectionTarget);
+        break;
+      case 51: //ALT+3
+      case 'titlecasecc':
+        TitleCaseChange.titleCaseCamelChange(info, selectionTarget);
+        break;
+      case 52: //ALT+4
+      case 'startcase':
+        TitleCaseChange.startCaseChange(info, selectionTarget);
+        break;
+      case 53: //ALT+5
+      case 'startcasecc':
+        TitleCaseChange.startCaseCamelChange(info, selectionTarget);
+        break;
+      case 54: //ALT+6
+      case 'camelcase':
+        TitleCaseChange.camelCaseChange(info, selectionTarget);
+        break;
+      case 55: //ALT+7
+      case 'uppercase':
+        TitleCaseChange.upperCaseChange(info, selectionTarget);
+        break;
+      case 56: //ALT+8
+      case 'lowercase':
+        TitleCaseChange.lowerCaseCamelChange(info, selectionTarget);
+        break;
+      default:
+        // do nothing
+    }
   };
 };
-
-TitleCase.onLoad();
+document.addEventListener("load", TitleCase.onLoad());
 
 function onGot(item) {
-  var altcmd2 = item[0].altcmd;
+  var altcmd2 = item.altcmd;
   if (altcmd2 !== altcmd ) {
     if (altcmd2 === true) {
       TitleCase.bindAltCmd();
