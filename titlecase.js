@@ -9,6 +9,7 @@ var TitleCase = new function() {
   var $this = this;
   var altCmdHandler = function(e) {
     if (e.altKey) {
+      $this.checkSettingChanges();
       $this.programSwitch(e.which, selectionInfo, selectionTarget);
       return false;
     }
@@ -58,6 +59,13 @@ var TitleCase = new function() {
   };
 
   this.programSwitch = function(whereTo, info, selectionTarget) {
+
+    if (info == '' && selectionTarget.value !== undefined) {
+      info = selectionTarget.value;
+      selectionTarget.selectionStart = 0;
+      selectionTarget.selectionEnd = info.length;
+    }
+
     switch (whereTo) {
       case 49: //ALT+1
       case 'propercase':

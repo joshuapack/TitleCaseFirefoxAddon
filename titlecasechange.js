@@ -96,7 +96,6 @@ var TitleCaseChange = new function() {
   };
 
   this.changeSelection = function(info, newinfo, selectionTarget) {
-    console.log(info);
     if (selectionTarget.value === undefined) {
       // need to detect rich text field or input/text field
       if (selectionTarget.rangeCount) {
@@ -113,7 +112,5 @@ var TitleCaseChange = new function() {
     }
     selectionTarget.selectionStart = start;
     selectionTarget.selectionEnd = start+newinfo.length;
-
-    console.log(selectionTarget);
   };
 };

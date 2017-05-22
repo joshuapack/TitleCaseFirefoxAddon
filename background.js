@@ -25,49 +25,49 @@ browser.contextMenus.create({
 browser.contextMenus.create({
   id: "propercase",
   title: "Proper case | ALT+1",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "titlecase",
   title: "Title Case | ALT+2",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "titlecasecc",
   title: "Title Case (CamelCase) | ALT+3",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "startcase",
   title: "Start Case | ALT+4",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "startcasecc",
   title: "Start Case (CamelCase) | ALT+5",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "camelcase",
   title: "CamelCase | ALT+6",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "uppercase",
   title: "UPPER CASE | ALT+7",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
   id: "lowercase",
   title: "lower case | ALT+8",
-  contexts: ["selection"]
+  contexts: ["all"]
 });
 
 function updateCheckUncheck() {
@@ -100,8 +100,8 @@ function sendMessageToTabs(tabs) {
       tab.id,
       {method: currentClicked}
     ).then(response => {
-      // console.log("Message from the content script:");
-      // console.log(response.response);
+      // Message from the content script:
+      // response.response
     }).catch(onError);
   }
 }
