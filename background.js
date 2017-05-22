@@ -1,5 +1,5 @@
 // set some globals
-var checkedState = false;
+var checkedState = true;
 var currentClicked = '';
 
 let gettingItem = browser.storage.local.get("altcmd");
