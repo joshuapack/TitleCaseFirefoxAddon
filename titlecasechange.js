@@ -4,31 +4,34 @@ var TitleCaseChange = new function() {
   var exceptionWords = new Array('and', 'the', 'to', 'for', 'is', 'in', 'a', 'at', 'an', 'from', 'by', 'if', 'of');
 
   this.properCaseChange = function(info, selectionTarget) {
-    var newinfo = info.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
+    var newinfo = info.toLowerCase().replace(/(^\s*\w|[\(\)\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
     $this.changeSelection(info, newinfo, selectionTarget);
   };
 
   this.titleCaseChange = function(info, selectionTarget) {
     var newinfo = info.toLowerCase().split(" ");
-
-    for (i=0;i<newinfo.length;i++) {
-      if (i == 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      } else if(exceptionWords.indexOf(newinfo[i]) < 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      }
-    }
+    newinfo = $this.makeUpperCase(newinfo, false);
     newinfo = newinfo.join(' ').split("\n");
+    newinfo = $this.makeUpperCase(newinfo, false);
+    newinfo = newinfo.join("\n").split("(");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("(").split(": ");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(": ").split(":");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(":");
+    $this.changeSelection(info, newinfo, selectionTarget);
+  };
 
-    for (i=0;i<newinfo.length;i++) {
+  this.makeUpperCase = function(stringArray, ignoreExceptions) {
+    for (i=0;i<stringArray.length;i++) {
       if (i == 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      } else if(exceptionWords.indexOf(newinfo[i]) < 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
+        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
+      } else if(exceptionWords.indexOf(stringArray[i]) < 0 || ignoreExceptions) {
+        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
       }
     }
-    newinfo = newinfo.join("\n");
-    $this.changeSelection(info, newinfo, selectionTarget);
+    return stringArray;
   };
 
   this.titleCaseCamelChange = function(info, selectionTarget) {
