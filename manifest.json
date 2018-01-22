@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "TitleCase",
-  "version": "3.1.1",
+  "version": "3.1.2",
 
   "description": "Transform strings into Title Case, Proper Case, Start Case, Camel Case, Upper Case, and Lower Case. You have 2 ways to change text. Either by right clicking on the field and changing the case or by highlighting and only changing what you highlighted.",
 
