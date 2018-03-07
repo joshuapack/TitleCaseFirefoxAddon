@@ -11,7 +11,7 @@ var TitleCase = new function() {
     if (e.altKey) {
       $this.checkSettingChanges();
       $this.programSwitch(e.which, selectionInfo, selectionTarget);
-      return false;
+      // return false;
     }
   };
 
@@ -51,11 +51,11 @@ var TitleCase = new function() {
   };
 
   this.unbindAltCmd = function() {
-    document.removeEventListener("keyup", altCmdHandler);
+    document.removeEventListener("keydown", altCmdHandler);
   };
 
   this.bindAltCmd = function() {
-    document.addEventListener("keyup", altCmdHandler);
+    document.addEventListener("keydown", altCmdHandler);
   };
 
   this.programSwitch = function(whereTo, info, selectionTarget) {

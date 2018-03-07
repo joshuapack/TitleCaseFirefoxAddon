@@ -19,7 +19,9 @@ var TitleCaseChange = new function() {
     newinfo = $this.makeUpperCase(newinfo, true);
     newinfo = newinfo.join(": ").split(":");
     newinfo = $this.makeUpperCase(newinfo, true);
-    newinfo = newinfo.join(":");
+    newinfo = newinfo.join(":").split("-");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("-");
     $this.changeSelection(info, newinfo, selectionTarget);
   };
 
