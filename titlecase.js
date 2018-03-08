@@ -17,6 +17,7 @@ var TitleCase = new function() {
 
   // run this to start application
   this.onLoad = function() {
+    $this.checkSettingChanges();
     browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       $this.checkSettingChanges();
 
@@ -25,8 +26,7 @@ var TitleCase = new function() {
       }
       return Promise.resolve({response: "Hi from content script"});
     });
-    let gettingItem = browser.storage.local.get("altcmd");
-    gettingItem.then(onGot, onError);
+    $this.checkSettingChanges();
     // make hooks
     document.addEventListener("mouseup", function(e) { $this.getSelectedText(e); });
     document.addEventListener("keyup", function(e) { $this.getSelectedText(e); });
@@ -59,7 +59,6 @@ var TitleCase = new function() {
   };
 
   this.programSwitch = function(whereTo, info, selectionTarget) {
-
     if (info == '' && selectionTarget.value !== undefined) {
       info = selectionTarget.value;
       selectionTarget.selectionStart = 0;
