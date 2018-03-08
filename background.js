@@ -77,7 +77,7 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
   browser.tabs.query({
     currentWindow: true,
     active: true
-  }).then(sendMessageToTabs).catch("browser.contextMenus.onClicked.addListener:" + onError);
+  }).then(sendMessageToTabs).catch(onError);
 });
 
 function sendMessageToTabs(tabs) {
@@ -88,7 +88,7 @@ function sendMessageToTabs(tabs) {
     ).then(response => {
       // Message from the content script:
       // response.response
-    }).catch("sendMessageToTabs:" + onError);
+    }).catch(onError);
   }
 }
 
