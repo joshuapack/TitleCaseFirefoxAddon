@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "TitleCase",
-  "version": "3.1.2",
+  "version": "3.1.3",
 
   "description": "Transform strings into Title Case, Proper Case, Start Case, Camel Case, Upper Case, and Lower Case. You have 2 ways to change text. Either by right clicking on the field and changing the case or by highlighting and only changing what you highlighted.",
 
@@ -27,7 +27,8 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["titlecase.js", "titlecasechange.js"]
+      "js": ["titlecase.js", "titlecasechange.js"],
+      "run_at" : "document_start"
     }
   ],
 
