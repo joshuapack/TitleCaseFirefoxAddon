@@ -104,6 +104,8 @@ var TitleCase = new function() {
     }
   };
 };
+let gettingItem = browser.storage.local.get("altcmd");
+gettingItem.then(onGot, onError);
 document.addEventListener("load", TitleCase.onLoad());
 
 function onGot(item) {
