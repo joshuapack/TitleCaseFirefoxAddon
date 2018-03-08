@@ -11,7 +11,7 @@ var TitleCaseChange = new function() {
   this.titleCaseChange = function(info, selectionTarget) {
     var newinfo = info.toLowerCase().split(" ");
     newinfo = $this.makeUpperCase(newinfo, false);
-    newinfo = newinfo.join(' ').split("\n");
+    newinfo = newinfo.join(" ").split("\n");
     newinfo = $this.makeUpperCase(newinfo, false);
     newinfo = newinfo.join("\n").split("(");
     newinfo = $this.makeUpperCase(newinfo, true);
@@ -21,67 +21,74 @@ var TitleCaseChange = new function() {
     newinfo = $this.makeUpperCase(newinfo, true);
     newinfo = newinfo.join(":").split("-");
     newinfo = $this.makeUpperCase(newinfo, true);
-    newinfo = newinfo.join("-");
+    newinfo = newinfo.join("-").split("“");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("“").split("\"");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\"");
     $this.changeSelection(info, newinfo, selectionTarget);
-  };
-
-  this.makeUpperCase = function(stringArray, ignoreExceptions) {
-    for (i=0;i<stringArray.length;i++) {
-      if (i == 0) {
-        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
-      } else if(exceptionWords.indexOf(stringArray[i]) < 0 || ignoreExceptions) {
-        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
-      }
-    }
-    return stringArray;
   };
 
   this.titleCaseCamelChange = function(info, selectionTarget) {
     var newinfo = info.split(" ");
-
-    for (i=0;i<newinfo.length;i++) {
-      if (i == 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      } else if(exceptionWords.indexOf(newinfo[i]) < 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      }
-    }
-    newinfo = newinfo.join(' ').split("\n");
-
-    for (i=0;i<newinfo.length;i++) {
-      if (i == 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      } else if(exceptionWords.indexOf(newinfo[i]) < 0) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-      }
-    }
-    newinfo = newinfo.join("\n");
+    newinfo = $this.makeUpperCase(newinfo, false);
+    newinfo = newinfo.join(" ").split("\n");
+    newinfo = $this.makeUpperCase(newinfo, false);
+    newinfo = newinfo.join("\n").split("(");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("(").split(": ");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(": ").split(":");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(":").split("-");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("-").split("“");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("“").split("\"");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\"");
     $this.changeSelection(info, newinfo, selectionTarget);
   };
 
   this.startCaseChange = function(info, selectionTarget) {
     var newinfo = info.toLowerCase().split(" ");
-    for (i=0;i<newinfo.length;i++) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-    }
-    newinfo = newinfo.join(' ').split("\n");
-    for (i=0;i<newinfo.length;i++) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-    }
-    newinfo = newinfo.join("\n");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(" ").split("\n");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\n").split("(");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("(").split(": ");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(": ").split(":");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(":").split("-");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("-").split("“");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("“").split("\"");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\"");
     $this.changeSelection(info, newinfo, selectionTarget);
   };
 
   this.startCaseCamelChange = function(info, selectionTarget) {
     var newinfo = info.split(" ");
-    for (i=0;i<newinfo.length;i++) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-    }
-    newinfo = newinfo.join(' ').split("\n");
-    for (i=0;i<newinfo.length;i++) {
-        newinfo[i] = (newinfo[i].substring(0,1)).toUpperCase() + newinfo[i].substring(1);
-    }
-    newinfo = newinfo.join("\n");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(" ").split("\n");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\n").split("(");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("(").split(": ");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(": ").split(":");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join(":").split("-");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("-").split("“");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("“").split("\"");
+    newinfo = $this.makeUpperCase(newinfo, true);
+    newinfo = newinfo.join("\"");
     $this.changeSelection(info, newinfo, selectionTarget);
   };
 
@@ -117,5 +124,16 @@ var TitleCaseChange = new function() {
     }
     selectionTarget.selectionStart = start;
     selectionTarget.selectionEnd = start+newinfo.length;
+  };
+
+  this.makeUpperCase = function(stringArray, ignoreExceptions) {
+    for (i=0;i<stringArray.length;i++) {
+      if (i == 0) {
+        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
+      } else if(exceptionWords.indexOf(stringArray[i]) < 0 || ignoreExceptions) {
+        stringArray[i] = (stringArray[i].substring(0,1)).toUpperCase() + stringArray[i].substring(1);
+      }
+    }
+    return stringArray;
   };
 };
