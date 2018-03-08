@@ -2,18 +2,13 @@
 var checkedState = true;
 var currentClicked = '';
 
-let gettingItem = browser.storage.local.get("altcmd");
-gettingItem.then(onGot, onError);
-
 /*
 Create all the context menu items.
 */
 browser.contextMenus.create({
   id: "check-uncheck",
-  type: "checkbox",
-  title: "Allow ALT Shorcut",
-  contexts: ["all"],
-  checked: checkedState
+  title: "Go To Options Page",
+  contexts: ["all"]
 });
 
 browser.contextMenus.create({
@@ -70,28 +65,19 @@ browser.contextMenus.create({
   contexts: ["all"]
 });
 
-function updateCheckUncheck() {
-  checkedState = !checkedState;
-  if (checkedState) {
-    browser.storage.local.set({altcmd: true});
-  } else {
-    browser.storage.local.set({altcmd: false});
-  }
-}
-
 /*
 The click event listener, where we perform the appropriate action given the
 ID of the menu item that was clicked.
 */
 browser.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == 'check-uncheck') {
-    updateCheckUncheck();
+    browser.runtime.openOptionsPage();
   }
   currentClicked = info.menuItemId;
   browser.tabs.query({
     currentWindow: true,
     active: true
-  }).then(sendMessageToTabs).catch(onError);
+  }).then(sendMessageToTabs).catch("browser.contextMenus.onClicked.addListener:" + onError);
 });
 
 function sendMessageToTabs(tabs) {
@@ -102,13 +88,8 @@ function sendMessageToTabs(tabs) {
     ).then(response => {
       // Message from the content script:
       // response.response
-    }).catch(onError);
+    }).catch("sendMessageToTabs:" + onError);
   }
-}
-
-function onGot(item) {
-  checkedState = item.altcmd;
-  browser.contextMenus.update("check-uncheck", {checked: checkedState});
 }
 
 function onError(error) {
