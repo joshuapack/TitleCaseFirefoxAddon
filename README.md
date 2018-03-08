@@ -22,6 +22,11 @@ This add-on can:
 
 Note: Please do not post bugs or problems in review as I will actively fix them.
 
+3.1.3 Bug Fix
+- A user sent a bug in where there was an issue with hyphens and quotes when using TitleCase. This has been fixed.
+- Added new rules with StartCase as well.
+- Possibly fixed issue where it stopped working on some websites. 
+
 3.1.2 Bug Fix
 - A user sent a bug in where there was an issue with colons and parentheses when using TitleCase. This has been fixed. 
 
