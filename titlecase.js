@@ -7,9 +7,10 @@ var TitleCase = new function() {
   var selectionTarget = '';
   var selectionInfo = '';
   var $this = this;
-  var altCmdHandler = function(e) {
-    if (e.altKey) {
-      $this.checkSettingChanges();
+
+  this.altCmdHandler = function(e) {
+    $this.checkSettingChanges();
+    if (e.altKey && altcmd == true) {
       $this.programSwitch(e.which, selectionInfo, selectionTarget);
       // return false;
     }
@@ -30,6 +31,7 @@ var TitleCase = new function() {
     // make hooks
     document.addEventListener("mouseup", function(e) { $this.getSelectedText(e); });
     document.addEventListener("keyup", function(e) { $this.getSelectedText(e); });
+    document.addEventListener("keydown", function(e) { $this.altCmdHandler(e); });
     $this.checkSettingChanges();
   };
 
@@ -48,14 +50,6 @@ var TitleCase = new function() {
       selectionTarget = selectionValue.target;
       selectionInfo = selectionTarget.value.substring(selectionTarget.selectionStart, selectionTarget.selectionEnd);
     }
-  };
-
-  this.unbindAltCmd = function() {
-    document.removeEventListener("keydown", altCmdHandler);
-  };
-
-  this.bindAltCmd = function() {
-    document.addEventListener("keydown", altCmdHandler);
   };
 
   this.programSwitch = function(whereTo, info, selectionTarget) {
@@ -103,20 +97,10 @@ var TitleCase = new function() {
     }
   };
 };
-let gettingItem = browser.storage.local.get("altcmd");
-gettingItem.then(onGot, onError);
 document.addEventListener("load", TitleCase.onLoad());
 
 function onGot(item) {
-  var altcmd2 = item.altcmd;
-  if (altcmd2 !== altcmd ) {
-    if (altcmd2 === true) {
-      TitleCase.bindAltCmd();
-    } else {
-      TitleCase.unbindAltCmd();
-    }
-    altcmd = altcmd2;
-  }
+  altcmd = item.altcmd;
 }
 
 function onError(error) {

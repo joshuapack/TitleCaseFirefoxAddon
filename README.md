@@ -3,9 +3,7 @@ You have 2 ways to change text. Either by right clicking on the field and changi
 
 https://addons.mozilla.org/en-US/firefox/addon/titlecase/
 
-Bug Found: It seems sometimes the ALT Keyboard shortcuts don't work. It could be due to the newer version of Firefox. I will be fixing this soon as soon as i can figure out why it stopped working.
-
-KEYBOARD SHORTCUTS All you have to do is right click and select TitleCase -> Allow ALT Shortcut. This will enable it forever, until you shut it off.
+KEYBOARD SHORTCUTS All you have to do is right click and Go To Options Page and scroll to bottom of page and select the checkbox Allow ALT Shortcut and hit Save. This will enable it forever, until you shut it off.
 
 Suggestions: If you have any suggestions, please do not hesitate to ask at https://www.htdsoftware.com/support
 
@@ -21,6 +19,10 @@ This add-on can:
 - Access browser tabs (This is to allow context menu to make changes to highlighted text)
 
 Note: Please do not post bugs or problems in review as I will actively fix them.
+
+3.1.4 Bug Fix
+- Fixed bug where sometimes the ALT shortcut works and sometimes it doesn't
+- Removed Context Menu CheckBox and replaced it to go to options page
 
 3.1.3 Bug Fix
 - A user sent a bug in where there was an issue with hyphens and quotes when using TitleCase. This has been fixed.
